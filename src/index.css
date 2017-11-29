@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #F0F0F0;
 }
 img{
 	width:100%;
@@ -24,6 +25,12 @@ img{
 .App-title {
   font-size: 1.5em;
 }
+/*********************/
+/*        home       */
+/*********************/
+.home{
+	display:flex;
+}
 
 /*********************/
 /* Listings/Posts    */
@@ -33,7 +40,10 @@ img{
 .listings-container{
 	list-style: none;
 	padding:0;
-	margin:0;
+	margin:50px;
+	border: 1px solid silver;
+	flex: 3;
+	/*margin-left: 100px;*/
 }
 .listings-container p{
  margin: 0;
@@ -52,8 +62,14 @@ img{
 
 
 /*********************/
-/*       App         */
+/*   Subscriptions   */
 /*********************/
+.subscriptions-container{
+	flex: 1;
+	border: 1px solid red;
+	align-self: flex-start;
+	margin:50px;
+}
 /*********************/
 /*       App         */
 /*********************/

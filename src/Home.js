@@ -49,7 +49,6 @@ class Home extends Component {
     return (
       <div className="home">
       	<DisplayListings listings={listings} />
-	      Home
 	      <Subscriptions />
       </div>
 
