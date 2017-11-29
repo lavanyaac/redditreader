@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Subscriptions from './Subscriptions.js';
+import Subscriptions from './Subscriptions';
+import DisplayListings from './Listings/DisplayListings';
 import axios from 'axios';
 
 const SUBSCRIPTIONS_LIST = 'subscriptionslist';
@@ -44,11 +45,12 @@ class Home extends Component {
 	}
 	render() {
 		const {subscriptions, listings} = this.state;
-		console.log('state', this.state);
+		console.log('state', this.state, listings);
     return (
-      <div className="reader-container">
-      Home
-      <Subscriptions/>
+      <div className="home">
+      	<DisplayListings listings={listings} />
+	      Home
+	      <Subscriptions />
       </div>
 
     );
