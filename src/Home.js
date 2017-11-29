@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Subscriptions from './Subscriptions';
+import DisplaySubscriptions from './Subscriptions/DisplaySubscriptions';
 import DisplayListings from './Listings/DisplayListings';
 import axios from 'axios';
 
@@ -49,7 +49,7 @@ class Home extends Component {
     return (
       <div className="home">
       	<DisplayListings listings={listings} />
-	      <Subscriptions />
+	      <DisplaySubscriptions subscriptions={subscriptions}/>
       </div>
 
     );
