@@ -3,13 +3,15 @@ import React, { Component } from 'react';
 class SubReddit extends Component {
   
 	render() {
-		const{ subreddit, handleSubscribeUnsubscribeClick, itemIndex } = this.props;
+		const{ subreddit, handleSubscribeUnsubscribeClick, subredditIndex } = this.props;
+    console.log(subreddit.user_subscribed);
     const subscriptionStatus = subreddit.user_subscribed ? 'Unsubscribe' : 'Subscribe';
 
     return (
       <li className="subreddit-container">
         <button 
-          className={ subscriptionStatus }>
+          className={ subscriptionStatus }
+          onClick = {(e) => handleSubscribeUnsubscribeClick(e, subredditIndex, subreddit.display_name)}>
           {subscriptionStatus}
         </button>
         <div className='subreddit-info'>

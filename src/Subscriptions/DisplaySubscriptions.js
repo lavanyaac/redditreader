@@ -9,7 +9,8 @@ class DisplaySubscriptions extends Component {
   constructor(props){
     super(props);
     this.state = {
-      subscriptions:[]
+      subscriptions:[],
+      refresh: this.props.refreshSubscriptions
     }
     this.getSubscriptionList.bind(this);
     this.handleUnsubscribeClick.bind(this);
@@ -17,6 +18,10 @@ class DisplaySubscriptions extends Component {
   }
 
   componentDidMount(){
+    this.getSubscriptionList();
+  }
+
+  componentWillReceiveProps(){
     this.getSubscriptionList();
   }
 
@@ -45,6 +50,9 @@ class DisplaySubscriptions extends Component {
     if(this.props.refreshListings){
         this.props.refreshListings();
     }
+    if(this.props.updateSubRedditList){
+        this.props.updateSubRedditList(subreddit, false);
+    }
   }
 
   render() {
@@ -57,7 +65,7 @@ class DisplaySubscriptions extends Component {
 
     const subscriptionsList = subscriptions.length === 0 ?
         <div>
-          <p>Click on Edit Subscription button to Subscribe to a reddit</p>
+          <p>Click on the below Manage Subscription button to subscribe to a subreddit</p>
         </div>
        :<ul>
           {
