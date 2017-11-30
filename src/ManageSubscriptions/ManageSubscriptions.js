@@ -57,10 +57,12 @@ class ManageSubscriptions extends Component {
     console.log('subreddits', this.state.subreddits);
     const { subreddits } = this.state
     return (
-      <div className="managesubscription-container">
-      	<h2>Manage Subscription</h2>
-      	<DisplaySubReddits subreddits={subreddits}/>
-      	<DisplaySubscriptions displayManageSubscription={false}/>
+      <div className="managesubscription">
+      	<div><h2>Manage Subscription</h2></div>
+        <div className="managesubscription-container">
+        	<DisplaySubReddits subreddits={subreddits}/>
+        	<DisplaySubscriptions displayManageSubscription={false}/>
+        </div>
       </div>
 
     );

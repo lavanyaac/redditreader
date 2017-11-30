@@ -80,11 +80,25 @@ img{
 
 }
 /*********************/
-/*       App         */
+/* Manage Subscriptions*/
 /*********************/
+.managesubscription-container{
+	display: flex;
+}
 /*********************/
-/*       App         */
+/*   Subreddits      */
 /*********************/
+.subreddits-container{
+	flex: 3;
+	list-style: none;
+	padding:0;
+	margin:50px;
+	border: 1px solid silver;
+}
+
+.subreddit-container{
+	display: flex;
+}
 /*********************/
 /*       App         */
 /*********************/
