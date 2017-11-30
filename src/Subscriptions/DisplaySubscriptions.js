@@ -60,7 +60,9 @@ class DisplaySubscriptions extends Component {
     const { displayManageSubscription } = this.props;
     
     const manageSubscription = displayManageSubscription ? 
-    <button onClick={this.handleManageSubscriptionsClick.bind(this)}>Manage Subscriptions</button> :
+    <div className="manageSubscription">
+      <button onClick={this.handleManageSubscriptionsClick.bind(this)}>Manage Subscriptions</button>
+    </div> :
     null;
 
     const subscriptionsList = subscriptions.length === 0 ?

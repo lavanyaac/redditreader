@@ -84,17 +84,19 @@ class Home extends Component {
 		const {listings, before, after, count} = this.state;
     return (
       <div className="home">
-      	<Pagination 
-		        before={before} 
-		        after={after} 
-		        count={count}
-		        callback={this.getData.bind(this)}/>
-      	<DisplayListings listings={listings} />
-      	<Pagination 
-		        before={before} 
-		        after={after} 
-		        count={count}
-		        callback={this.getData.bind(this)}/>
+      	<div className="reader">
+	      	<Pagination 
+			        before={before} 
+			        after={after} 
+			        count={count}
+			        callback={this.getData.bind(this)}/>
+	      	<DisplayListings listings={listings} />
+	      	<Pagination 
+			        before={before} 
+			        after={after} 
+			        count={count}
+			        callback={this.getData.bind(this)}/>
+		    </div>
 	      <DisplaySubscriptions 
 	      displayManageSubscription={true}
 	      refreshListings={this.refreshListings.bind(this)}/>

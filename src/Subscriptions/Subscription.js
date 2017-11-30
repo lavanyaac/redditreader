@@ -5,8 +5,8 @@ class DisplaySubscriptions extends Component {
 		const {subscription, subscriptionIndex, handleUnsubscribeClick} = this.props;
     return (
       <li className="subscriptions">
-      	<button onClick={()=> handleUnsubscribeClick(subscriptionIndex, subscription)}>
-      	Unscubscribe
+        <button onClick={()=> handleUnsubscribeClick(subscriptionIndex, subscription)}>
+      	Unsubscribe
       	</button>
       	<p>{subscription}</p>
       </li>

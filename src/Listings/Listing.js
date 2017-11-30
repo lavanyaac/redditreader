@@ -8,12 +8,12 @@ class Listing extends Component {
     defaultImageSrc : listing.data.thumbnail;
     return (
       <li className="listing-container">
-        <div><p>{listing.data.ups} Votes</p></div>
+        <div className="votes"><p>{listing.data.ups} Votes</p></div>
         <div className="listing-image"><img src={imgSrc} alt="" /></div>
-        <div>
+        <div className="listing-info">
           <a href={listing.data.url} >{listing.data.title}</a>
           <p className="domain-name">{listing.data.domain}</p>
-          <p className="additional-info">Submitted by {listing.data.author} to {listing.data.subreddit_name_prefixed}</p>
+          <p className="additional-info">Submitted by <span>{listing.data.author}</span> to <span>{listing.data.subreddit_name_prefixed}</span></p>
           <p className="additional-info">{listing.data.num_comments} comments</p>
         </div>
       </li>

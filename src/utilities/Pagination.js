@@ -5,7 +5,7 @@ class Pagination extends Component {
     console.log("~~~count",this.props);
   	const {before, after, count, callback} = this.props;
     return (
-      <div>
+      <div className="pagination">
         <button 
         className={ "prevbtn pgbtn "+ (count > 26 ? "" : "inactive")}
         onClick={() => {callback(before, '', 'sub')}}>
