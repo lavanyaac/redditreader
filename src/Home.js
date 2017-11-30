@@ -44,7 +44,7 @@ class Home extends Component {
 			subscriptions = JSON.parse(subscriptions);
 			this.setState({subscriptions});
 		}
-		return subscriptions;
+		return subscriptions || [];
 	}
 
 	getListings(before, after, type='add', transactionType='continue', subscriptions){

@@ -36,6 +36,7 @@ class ManageSubscriptions extends Component {
       subscriptions = JSON.parse(subscriptions);
       this.setState({subscriptions});
     }
+    subscriptions = subscriptions || [];
     return subscriptions;
   }
   getSubReddits(before, after, type='add'){
