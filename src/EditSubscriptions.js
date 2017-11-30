@@ -4,8 +4,7 @@ class EditSubscriptions extends Component {
 	render() {
     return (
       <div className="editsubscription-container">
-      Edit Subscription
-
+      	Edit Subscription
       </div>
 
     );

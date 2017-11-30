@@ -49,7 +49,7 @@ class Home extends Component {
     return (
       <div className="home">
       	<DisplayListings listings={listings} />
-	      <DisplaySubscriptions subscriptions={subscriptions}/>
+	      <DisplaySubscriptions displayManageSubscription={true}/>
       </div>
 
     );

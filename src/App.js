@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import Home from './Home.js'
-import EditSubscriptions from './EditSubscriptions.js'
+import Home from './Home'
+import ManageSubscriptions from './ManageSubscriptions/ManageSubscriptions';
 
 class App extends Component {
   render() {
@@ -12,8 +12,8 @@ class App extends Component {
         </header>
         <BrowserRouter>
           <Switch>
-            <Route name="home" path="/" component={(props) => (<Home />)}/>
-            <Route name="editsubscriptions" path="/editsubscriptions" component={(props) => (<EditSubscriptions />)}/>
+            <Route name="home" exact path="/" component={(props) => (<Home />)}/>
+            <Route name="managesubscriptions" path="/managesubscriptions" component={(props) => (<ManageSubscriptions />)}/>
           </Switch>
         </BrowserRouter>
       </div>
