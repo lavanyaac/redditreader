@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 class Pagination extends Component {
   render() {
-    console.log("~~~count",this.props);
   	const {before, after, count, callback} = this.props;
     return (
       <div className="pagination">

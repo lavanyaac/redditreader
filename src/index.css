@@ -203,6 +203,7 @@ p{
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  outline: none;
 }
 .Subscribe{
   border: 1px solid #43A047;
@@ -265,20 +266,20 @@ p{
 	transition: 0.5s all;
 }
 /*********************/
-/* Manage Subscriptions*/
+/*    Top Button   */
 /*********************/
-/*.managesubscription-container{
-	display: flex;
+.move-to-btn{
+  position:fixed;
+  bottom:0;
+  right:20px;
+  outline: none;
+  padding: 15px;
+  background-color: rgba(0,0,0, 0.5);
+  color:#fff;
+  font-size: 16px;
+  border:none;
+  cursor: pointer;
 }
-.subreddits-container{
-	flex: 3;
-  background-color: #F8F8F8;
-  background-color: #fff;
-  margin:0;
-  margin: 20px;
-  padding: 20px;
-  margin-right: 50px;
-}	*/
 /*********************/
 /*       App         */
 /*********************/

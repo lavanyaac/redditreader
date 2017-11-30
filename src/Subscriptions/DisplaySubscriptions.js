@@ -35,7 +35,6 @@ class DisplaySubscriptions extends Component {
   }
 
   handleManageSubscriptionsClick(){
-    console.log("hellooooooo", this)
     this.props.history.push('/managesubscriptions');
   }
 

@@ -5,7 +5,6 @@ class SubReddit extends Component {
   
 	render() {
 		const{ subreddit, handleSubscribeUnsubscribeClick, subredditIndex } = this.props;
-    console.log(subreddit.user_subscribed);
     const subscriptionStatus = subreddit.user_subscribed ? 'Unsubscribe' : 'Subscribe';
     const time = moment(parseFloat(subreddit.created)*1000).fromNow();
     return (

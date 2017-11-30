@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DisplaySubscriptions from './Subscriptions/DisplaySubscriptions';
 import DisplayListings from './Listings/DisplayListings';
 import Pagination from './utilities/Pagination';
+import MoveToTop from './utilities/MoveToTop'
 import axios from 'axios';
 
 const SUBSCRIPTIONS_LIST = 'subscriptionslist';
@@ -21,12 +22,16 @@ class Home extends Component {
 		this.getData.bind(this);
 		this.refreshListings.bind(this);
 		//to be deleted - added just for testing
-		window.localStorage.setItem(SUBSCRIPTIONS_LIST, JSON.stringify(['worldnews', 'funny']));
+		// window.localStorage.setItem(SUBSCRIPTIONS_LIST, JSON.stringify(['worldnews', 'funny']));
 	}
 
 	componentDidMount(){
 		this.getData('', '' );
 	}
+
+	componentDidUpdate(){
+  	window.scrollTo(0, 0);
+  }
 
 	getData(before, after, type, transactionType){
 		const subscriptions = this.getSubscriptions();
@@ -100,6 +105,7 @@ class Home extends Component {
 	      <DisplaySubscriptions 
 	      displayManageSubscription={true}
 	      refreshListings={this.refreshListings.bind(this)}/>
+	      <MoveToTop scrollStepInPx="50" delayInMs="17"/>
       </div>
 
     );

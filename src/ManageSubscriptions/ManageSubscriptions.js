@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DisplaySubscriptions from '../Subscriptions/DisplaySubscriptions';
 import DisplaySubReddits from './DisplaySubReddits';
+import Pagination from '../utilities/Pagination';
+import MoveToTop from '../utilities/MoveToTop'
 import axios from 'axios';
 import update from 'immutability-helper';
 const SUBSCRIPTIONS_LIST = 'subscriptionslist';
@@ -11,6 +13,9 @@ class ManageSubscriptions extends Component {
 		super(props);
     this.state = {
       subreddits: [],
+      after: '',
+      before: '',
+      count: 0,
       refreshSubscriptions: false
     }
 		this.getSubReddits.bind(this);
@@ -20,7 +25,10 @@ class ManageSubscriptions extends Component {
 	}
 
   componentDidMount(){
-    this.getSubReddits();
+    this.getSubReddits('', '');
+  }
+  componentDidUpdate(){
+    window.scrollTo(0, 0);
   }
   getSubscriptionList(){
     let subscriptions = window.localStorage.getItem(SUBSCRIPTIONS_LIST);
@@ -30,10 +38,23 @@ class ManageSubscriptions extends Component {
     }
     return subscriptions;
   }
-  getSubReddits(){
-    axios.get(`https://www.reddit.com/subreddits.json`)
+  getSubReddits(before, after, type='add'){
+    let url;
+    if(this.state.count === 0){
+      url = `https://www.reddit.com/subreddits.json`;
+    }else if(after !== ''){
+      url = `https://www.reddit.com/subreddits.json?count=${this.state.count}&after=${after}`;
+    }else if(before !== ''){
+      url = `https://www.reddit.com/subreddits.json?count=${this.state.count}&before=${before}`;
+    }else{
+      console.log('Error with subreddits request');
+    }
+    axios.get(url)
     .then(results => {
       const user_subscribed = this.getSubscriptionList();
+      const after = results.data.data.after === null? '': results.data.data.after;
+      const before = results.data.data.before === null? '': results.data.data.before;
+      const addCount = type === 'add' ? 25 : -25;
       const subredditsData = results.data.data.children.map(subreddit => {
         const obj ={};
         obj['id'] = subreddit.data.id;
@@ -50,7 +71,8 @@ class ManageSubscriptions extends Component {
         return obj;
       });
       this.setState({
-        subreddits: subredditsData
+        subreddits: subredditsData, after, before,
+        count: this.state.count + addCount
       })
     })
     .catch(error => {
@@ -68,7 +90,7 @@ class ManageSubscriptions extends Component {
         return subscription === subreddit.toLowerCase();
       });
       if(index === -1){
-        throw 'Unable to update local storage with: ',subreddit
+        throw new Error('Unable to update local storage with subscriptions');
       }
       subscriptions.splice(index, 1);
     }
@@ -76,17 +98,14 @@ class ManageSubscriptions extends Component {
   }
 
   handleSubscribeUnsubscribeClick(e, subRedditIndex, subreddit){
-    console.log("handleSubscribeUnsubscribeClick");
     const isSubscribed = e.target.className === 'Unsubscribe' ?
     false: true;
-    console.log(e, subRedditIndex, subreddit, isSubscribed)
     const updatedList = update(this.state.subreddits, {
         [subRedditIndex]:{
           user_subscribed: {
             $set: isSubscribed          }
         }
       });
-      console.log("[$]sub", subRedditIndex, updatedList);
       this.setState({
         subreddits: updatedList,
         refreshSubscriptions: true
@@ -95,7 +114,6 @@ class ManageSubscriptions extends Component {
   }
 
   updateSubRedditList(subreddit, newUserSubscribedBol){
-    console.log(subreddit, newUserSubscribedBol)
     const index = this.state.subreddits.findIndex((subscription)=>{
       return subscription.display_name.toLowerCase() === subreddit.toLowerCase();
     });
@@ -107,14 +125,13 @@ class ManageSubscriptions extends Component {
           }
         }
       });
-      console.log(updatedList);
       this.setState({
         subreddits: updatedList
       });
     }
   }
 	render() {
-    const { subreddits, refreshSubscriptions } = this.state
+    const { subreddits, refreshSubscriptions, before, after, count } = this.state
     return (
       <div className="managesubscription">
       	<div><h2>Manage Subscription</h2></div>
@@ -122,11 +139,17 @@ class ManageSubscriptions extends Component {
         	<DisplaySubReddits 
           subreddits={subreddits}
           handleSubscribeUnsubscribeClick={this.handleSubscribeUnsubscribeClick.bind(this)}/>
+          <Pagination 
+              before={before} 
+              after={after} 
+              count={count}
+              callback={this.getSubReddits.bind(this)}/>
         	<DisplaySubscriptions 
           displayManageSubscription={false}
           refreshSubscriptions={refreshSubscriptions}
           updateSubRedditList={this.updateSubRedditList.bind(this)}/>
         </div>
+        <MoveToTop scrollStepInPx="50" delayInMs="17"/>
       </div>
 
     );
