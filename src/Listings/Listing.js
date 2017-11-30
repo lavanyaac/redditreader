@@ -4,7 +4,7 @@ class Listing extends Component {
 	render() {
 		const {listing} = this.props;
     const defaultImageSrc = "assets/images/thumbnail-default.jpg";
-    const imgSrc = ['default', 'self', 'nsfw'].includes(listing.data.thumbnail)? 
+    const imgSrc = ['default', 'self', 'nsfw', ''].includes(listing.data.thumbnail)? 
     defaultImageSrc : listing.data.thumbnail;
     return (
       <li className="listing-container">

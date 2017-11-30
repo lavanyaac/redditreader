@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DisplaySubscriptions from './Subscriptions/DisplaySubscriptions';
 import DisplayListings from './Listings/DisplayListings';
+import Pagination from './utilities/Pagination';
 import axios from 'axios';
 
 const SUBSCRIPTIONS_LIST = 'subscriptionslist';
@@ -10,7 +11,10 @@ class Home extends Component {
 		super(props);
 		this.state = {
 			listings: [],
-			subscriptions:[]
+			subscriptions:[],
+			before: '',
+			after: '',
+			count: 0
 		}
 		this.getSubscriptions.bind(this);
 		this.getListings.bind(this);
@@ -21,13 +25,12 @@ class Home extends Component {
 	}
 
 	componentDidMount(){
-		this.getData();
+		this.getData('', '' );
 	}
 
-	getData(){
-		console.log('getdata');
+	getData(before, after, type, transactionType){
 		const subscriptions = this.getSubscriptions();
-		this.getListings(subscriptions);
+		this.getListings(before, after, type, transactionType, subscriptions);
 	}
 
 	getSubscriptions(){
@@ -39,15 +42,35 @@ class Home extends Component {
 		return subscriptions;
 	}
 
-	getListings(subscriptions=this.state.subscriptions){
-		const url = 'https://www.reddit.com/r/';
-		// const {subscriptions} = this.state;
-
-		console.log('*******subscriptions', subscriptions)
+	getListings(before, after, type='add', transactionType='continue', subscriptions){
+		let url;
+		let count;
+		if(transactionType === 'refresh'){
+  		count = 0;
+  	}else{
+  		count = this.state.count;
+  	}
 		const path = subscriptions.length > 0 ? subscriptions.join('+'): 'news';
-		axios.get(`${url}${path}.json`)
+
+		if(count === 0){
+			url = `https://www.reddit.com/r/${path}.json`;
+		}else if(after !== ''){
+			url = `https://www.reddit.com/r/${path}.json?count=${count}&after=${after}`;
+		}else if(before !== ''){
+			url = `https://www.reddit.com/r/${path}.json?count=${count}&before=${before}`;
+		}else{
+			console.log('Error with getListings params');
+		}
+
+		axios.get(url)
 		.then(results => {
-			this.setState({listings: results.data.data.children});
+			const after = results.data.data.after === null? '': results.data.data.after;
+  		const before = results.data.data.before === null? '': results.data.data.before;
+  		const addCount = type === 'add' ? 25 : -25;
+			this.setState({
+				listings: results.data.data.children, after, before, 
+				count: count + addCount
+			});
 		})
 		.catch(error => {
 			console.log(error);
@@ -58,11 +81,20 @@ class Home extends Component {
 		this.getData();
 	}
 	render() {
-		const {subscriptions, listings} = this.state;
-		console.log('state', this.state, listings);
+		const {listings, before, after, count} = this.state;
     return (
       <div className="home">
+      	<Pagination 
+		        before={before} 
+		        after={after} 
+		        count={count}
+		        callback={this.getData.bind(this)}/>
       	<DisplayListings listings={listings} />
+      	<Pagination 
+		        before={before} 
+		        after={after} 
+		        count={count}
+		        callback={this.getData.bind(this)}/>
 	      <DisplaySubscriptions 
 	      displayManageSubscription={true}
 	      refreshListings={this.refreshListings.bind(this)}/>
