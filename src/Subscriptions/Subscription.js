@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 
 class DisplaySubscriptions extends Component {
 	render() {
-		const {subscription} = this.props;
+		const {subscription, subscriptionIndex, handleUnsubscribeClick} = this.props;
     return (
       <li className="subscriptions">
-      	<button>Unscubscribe</button>
+      	<button onClick={()=> handleUnsubscribeClick(subscriptionIndex, subscription)}>
+      	Unscubscribe
+      	</button>
       	<p>{subscription}</p>
       </li>
 

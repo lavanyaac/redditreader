@@ -14,13 +14,22 @@ class Home extends Component {
 		}
 		this.getSubscriptions.bind(this);
 		this.getListings.bind(this);
+		this.getData.bind(this);
+		this.refreshListings.bind(this);
 		//to be deleted - added just for testing
 		window.localStorage.setItem(SUBSCRIPTIONS_LIST, JSON.stringify(['worldnews', 'funny']));
 	}
+
 	componentDidMount(){
+		this.getData();
+	}
+
+	getData(){
+		console.log('getdata');
 		const subscriptions = this.getSubscriptions();
 		this.getListings(subscriptions);
 	}
+
 	getSubscriptions(){
 		let subscriptions = window.localStorage.getItem(SUBSCRIPTIONS_LIST);
 		if(subscriptions){
@@ -29,6 +38,7 @@ class Home extends Component {
 		}
 		return subscriptions;
 	}
+
 	getListings(subscriptions=this.state.subscriptions){
 		const url = 'https://www.reddit.com/r/';
 		// const {subscriptions} = this.state;
@@ -43,13 +53,19 @@ class Home extends Component {
 			console.log(error);
 		});
 	}
+
+	refreshListings(){
+		this.getData();
+	}
 	render() {
 		const {subscriptions, listings} = this.state;
 		console.log('state', this.state, listings);
     return (
       <div className="home">
       	<DisplayListings listings={listings} />
-	      <DisplaySubscriptions displayManageSubscription={true}/>
+	      <DisplaySubscriptions 
+	      displayManageSubscription={true}
+	      refreshListings={this.refreshListings.bind(this)}/>
       </div>
 
     );

@@ -12,8 +12,8 @@ class App extends Component {
         </header>
         <BrowserRouter>
           <Switch>
-            <Route name="home" exact path="/" component={(props) => (<Home />)}/>
-            <Route name="managesubscriptions" path="/managesubscriptions" component={(props) => (<ManageSubscriptions />)}/>
+            <Route name="home" exact path="/" component={() => (<Home />)}/>
+            <Route name="managesubscriptions" path="/managesubscriptions" component={() => (<ManageSubscriptions />)}/>
           </Switch>
         </BrowserRouter>
       </div>
