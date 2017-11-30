@@ -4,11 +4,14 @@ import Home from './Home'
 import ManageSubscriptions from './ManageSubscriptions/ManageSubscriptions';
 
 class App extends Component {
+  homeHandler(){
+    window.location.href='/';
+  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Reddit Reader</h1>
+          <h1 className="App-title" onClick={this.homeHandler.bind(this)}>Reddit Reader</h1>
         </header>
         <BrowserRouter>
           <Switch>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const moment = require('moment');
 
 class SubReddit extends Component {
   
@@ -6,7 +7,7 @@ class SubReddit extends Component {
 		const{ subreddit, handleSubscribeUnsubscribeClick, subredditIndex } = this.props;
     console.log(subreddit.user_subscribed);
     const subscriptionStatus = subreddit.user_subscribed ? 'Unsubscribe' : 'Subscribe';
-
+    const time = moment(parseFloat(subreddit.created)*1000).fromNow();
     return (
       <li className="subreddit-container">
         <button 
@@ -22,7 +23,7 @@ class SubReddit extends Component {
           <p>{subreddit.public_description}</p>
           <div className='subreddit-subs-info'>
             <p>{subreddit.subscribers} subscribers, </p>
-            <p>&nbsp;a community for {}</p>
+            <p>&nbsp;a community for {time}</p>
           </div>
         </div>
 
